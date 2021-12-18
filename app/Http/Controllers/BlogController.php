@@ -10,7 +10,16 @@ class BlogController extends Controller
 {
     public function index ()
     {
-        return 'Посты в блоге';
+        $post = (object) [
+            'id' => 123,
+            'title' => 'Lorem ipsum dolor sit amet.',
+            'content' => 'Lorem ipsum <strong>dolor</strong> sit amet, consectetur adipisicing elit. Delectus, nemo?'
+        ];
+
+        $posts = array_fill(0,10,$post);
+
+        return view('blog.index', compact('posts'));
+
     }
 
     public function show ($post)
@@ -18,7 +27,13 @@ class BlogController extends Controller
         //Это пример того как можно проверять по какому роуту пришел запрос
         // return Route::is('blog*') ? 'yes' : 'no';
 
-        return 'Один пост в блоге';
+        $post = (object) [
+            'id' => 123,
+            'title' => 'Lorem ipsum dolor sit amet.',
+            'content' => 'Lorem ipsum <strong>dolor</strong> sit amet, consectetur adipisicing elit. Delectus, nemo?'
+        ];
+
+        return view('blog.show', compact('post'));
     }
 
     public function like ($post)

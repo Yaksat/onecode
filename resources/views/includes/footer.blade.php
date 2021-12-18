@@ -1,3 +1,3 @@
 <footer class="py-3 border-top">
-    Подвал
+    © {{ config('app.name') }} {{ $date }}
 </footer>
