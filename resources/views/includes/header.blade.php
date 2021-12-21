@@ -1,40 +1,43 @@
-<header class="py-3 border-bottom">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
-        <div class="d-flex justify-content-between">
+        <a href="{{ route('home') }}" class="navbar-brand">
+            {{ config('app.name') }}
+        </a>
 
-            <div>
-                <ul class="list-unstyled d-flex">
-                    <li class="mr-3">
-                        <a href="{{ route('home') }}">
-                            Главная
-                        </a>
-                    </li>
+        <button type="button" class="navbar-toggler"  data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- наш "бургер", который будет виден в мобильном режиме. В нем содержится все что в data-bs-toggle="collapse"
+        т.е. все что в <div>, который ниже) В мобильном будет свернут, в десктопе развернут -->
 
-                    <li class="mr-3">
-                        <a href="{{ route('blog') }}">
-                            Блог
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a href=" {{ route('home') }}" class="nav-link active" aria-current="page"> <!-- active - делает ссылку активной (подсвеченной) -->
+                        {{ __('Главная') }}       <!-- хелпер __() нужен чтобы потом легче было сделать мультиязычный сайт -->
+                    </a>
+                </li>
 
-            <div>
-                <ul class="list-unstyled d-flex">
+                <li class="nav-item">
+                    <a href=" {{ route('blog') }}" class="nav-link" aria-current="page">
+                        {{ __('Блог') }}
+                    </a>
+                </li>
+            </ul>
 
-                    <li class="ml-3">
-                        <a href="{{ route('register') }}">
-                            Регистрация
-                        </a>
-                    </li>
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a href="{{ route('register') }}" class="nav-link active" aria-current="page">
+                        {{ __('Регистрация') }}
+                    </a>
+                </li>
 
-                    <li class="ml-3">
-                        <a href="{{ route('login') }}">
-                            Вход
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
+                <li class="nav-item">
+                    <a href=" {{ route('login') }}" class="nav-link" aria-current="page">
+                        {{ __('Вход') }}
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-</header>
+</nav>
