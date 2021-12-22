@@ -11,7 +11,7 @@
     <!-- это только для этого проекта. Вообще нужно выносить стили в отдельный файл -->
     <style>
         .container { max-width: 720px; }
-        .required:after { content: '*'; color: red; margin-left: 3px; }
+        .required:after { content: '*'; color: red;}
     </style>
 
 </head>
