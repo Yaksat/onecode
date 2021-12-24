@@ -8,10 +8,16 @@
             <x-card-title>
                 {{ __('Регистрация') }}
             </x-card-title>
+
+            <x-slot name="right">
+                <a href="{{ route('login') }}">
+                    {{ __('Вход') }}
+                </a>
+            </x-slot>
         </x-card-header>
 
         <x-card-body>
-            <x-form action="{{ route('login.store') }}" method="POST">
+            <x-form action="{{ route('register.store') }}" method="POST">
                 <x-form-item>
                     <x-label required>{{ __('Имя') }}</x-label>
                     <x-input name="name" autofocus/>
