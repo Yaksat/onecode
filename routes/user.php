@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 // user. Работа с постами - через личный кабинет пользователя, поэтому добавим в начале маршрута 'user'
 // Чтобы нам не переписывать все маршруты, добавим в начале user с помощью prefix.
-Route::prefix('user')->middleware(['auth', 'active'])->group(function () {
+//Route::prefix('user')->middleware(['auth', 'active'])->group(function () {
+Route::prefix('user')->group(function () {
     Route::redirect('/', 'user/posts')->name('user');
+
     Route::get('posts', [PostController::class, 'index'])->name('user.posts');               //Через хелпер и название маршрута route('posts') можно получить сам маршрут  "http://localhost/posts". (коммент до добавления prefix)
     Route::get('posts/create', [PostController::class, 'create'])->name('user.posts.create'); //localhost берется из переменной APP_URL в .env
     Route::post('posts', [PostController::class, 'store'])->name('user.posts.store');
