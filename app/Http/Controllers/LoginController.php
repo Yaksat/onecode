@@ -11,8 +11,14 @@ class LoginController extends Controller
         return view('login.index');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $remember = $request->boolean('remember');
+
+        dd($email, $password, $remember);
+
         return 'Запрос на вход';
     }
 }
