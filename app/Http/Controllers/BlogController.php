@@ -36,7 +36,13 @@ class BlogController extends Controller
             return true;
         });
 
-        return view('blog.index', compact('posts'));
+        $categories = [
+            null => __('Все категории'),
+            1 => __('Первая категория'),
+            2 => __('Вторая категория'),
+        ];
+
+        return view('blog.index', compact('posts', 'categories'));
 
     }
 

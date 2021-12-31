@@ -8,7 +8,7 @@
 
         <div class="col-12 col-md-4">
             <div class="mb-3">
-                <x-select name="category_id" />
+                <x-select name="category_id" value="{{ request('category_id') }}" :options="$categories" />
             </div>
         </div>
 
