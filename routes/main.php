@@ -38,8 +38,9 @@ Route::view('/', 'home.index')->name('home'); // 'home.index' - это назв�
 Route::redirect('/home', '/')->name('home.redirect');
 
 // контроллер может указываться и без метода (по умолчанию метод __invoke)
-Route::get('/test', TestController::class)->name('test')->middleware('token:secret');
+//Route::get('/test', TestController::class)->name('test')->middleware('token:secret');
 // В миддлевеер можно передавать параметры через двоеточие. Так передавать ключи конечно не надо, это учебный пример
+Route::get('/test', TestController::class)->name('test');
 
 
 Route::middleware('guest')->group(function () {

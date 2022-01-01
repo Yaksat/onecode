@@ -19,16 +19,16 @@ class RegisterController extends Controller
         // $data = $request->only(['name', 'email']);
         // $data = $request->except(['name', 'email']);
 
-         $name = $request->input('name');   // Получаем только определенные параметры. По другому можно записать: $name = $request->name;
-         $email = $request->input('email');
-         $password = $request->input('password');
-
-        // $agreement = !! $request->input('agreement');          // Переводим в булево значение так, либо через boolean.
-         $agreement = $request->boolean('agreement');
-
-        // $avatar = $request->file('avatar');               // Получение файла, который загружает пользователь.
-
-         dd($name, $email, $password, $agreement);
+//         $name = $request->input('name');   // Получаем только определенные параметры. По другому можно записать: $name = $request->name;
+//         $email = $request->input('email');
+//         $password = $request->input('password');
+//
+//         $agreement = !! $request->input('agreement');          // Переводим в булево значение так, либо через boolean.
+//         $agreement = $request->boolean('agreement');
+//
+//         $avatar = $request->file('avatar');               // Получение файла, который загружает пользователь.
+//
+//         dd($name, $email, $password, $agreement);
 
         // dd($request->has('name'));  // has() метод проверяет наличие параметра в запросе - возвращает булево значение. Возвращает true даже если параметр не заполнен, но он есть.
 
@@ -40,7 +40,10 @@ class RegisterController extends Controller
             // Если удалось получить name, то что то делаем. Если нет, то вернет null и условие не выполниться
         } */
 
-        return 'Запрос на регистрацию';
+        if (true) {
+            return redirect()->back()->withInput();
+        }
+        return redirect()->route('user');
     }
 
 }

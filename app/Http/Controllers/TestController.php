@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class TestController extends Controller
 {
@@ -13,8 +14,16 @@ class TestController extends Controller
         $this->middleware('token');
     }*/
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        return 'test';
+//        $response = app()->make('response');
+//        $response = app('response');
+//        $response = Response::make('ljfdg');
+//        $response = response();
+
+//        return response('Test');
+
+//        return ['foo' => 'bar']; // laravel автоматически конвертирует массив в json.
+        return response()->json(['foo' => 'bar']);
     }
 }

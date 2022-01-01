@@ -18,8 +18,6 @@ class LoginController extends Controller
 //        dd($request->is('logi*'));
 //        dd($request->routeIs('log'));
 
-        $method = $request->method();
-        dd($request->collect());
         return view('login.index');
     }
 
@@ -31,12 +29,23 @@ class LoginController extends Controller
 //
 //        dd($ip, $path, $url);
 
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $remember = $request->boolean('remember');
+//        $email = $request->input('email');
+//        $password = $request->input('password');
+//        $remember = $request->boolean('remember');
+//
+//        dd($email, $password, $remember);
 
-        dd($email, $password, $remember);
+//        return 'Запрос на вход';
 
-        return 'Запрос на вход';
+//        return response()->redirectTo('/foo');
+//        return response()->redirectToRoute('user');
+//        return redirect('/foo');
+
+        if (true) {
+            return redirect()->back()->withInput();
+        }
+
+        return redirect()->route('user');
+
     }
 }
