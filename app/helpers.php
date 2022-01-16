@@ -17,8 +17,11 @@ if (! function_exists('active_link')){
 }
 
 if (! function_exists('alert')){
-    function alert(string $value)
+    function alert(string $value, string $alertClass = 'success')
     {
-        return session(['alert' => $value]);
+        return session([
+            'alert' => $value,
+            'alertClass' => $alertClass,
+        ]);
     }
 }
