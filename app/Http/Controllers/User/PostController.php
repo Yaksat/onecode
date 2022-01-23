@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\StorePostRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
@@ -25,12 +27,38 @@ class PostController extends Controller
         return view('user.posts.create');
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $title = $request->input('title');
-        $content = $request->input('content');
-//
-//        dd($title, $content);
+        //1-ый способ валидации - form request validation - php artisan make:request Post/StorePostRequest
+//        В store передаем уже вот так store(StorePostRequest $request)
+//        $validated = $request->validated(); //получаем данные, которые проверены с помощью класса StorePostRequest.
+
+        // 2-ой способ валидации
+//        $validated = $request->validate([
+//            'title' => ['required', 'string', 'max:100'],
+//            'content' => ['required', 'string', 'max:10000'],
+//        ]);
+
+        // 3-ий способ валидации
+//        $validated = validator($request->all(), [
+//            'title' => ['required', 'string', 'max:100'],
+//            'content' => ['required', 'string', 'max:10000'],
+//        ])->validate();
+
+        //4-ый способ с помощью самописного хелпера validate()
+        $validated = validate($request->all(), [
+            'title' => ['required', 'string', 'max:100'],
+            'content' => ['required', 'string', 'max:10000'],
+        ]);
+
+//        Через исключения (через error) можно кинуть еще сообщение на страницу
+//        if (true) {
+//            throw ValidationException::withMessages([
+//                'account' => __('Недостаточно средств.'),
+//            ]);
+//        }
+
+        dd($validated);
 
         alert(__('Сохранено!'));
 
@@ -61,10 +89,12 @@ class PostController extends Controller
 
     public function update(Request $request, $post)
     {
-        $title = $request->input('title');
-        $content = $request->input('content');
+        $validated = validate($request->all(), [
+            'title' => ['required', 'string', 'max:100'],
+            'content' => ['required', 'string', 'max:10000'],
+        ]);
 
-//        dd($title, $content);
+        dd($validated);
 
         alert(__('Сохранено!'));
         return redirect()->back(); // возвращает назад
