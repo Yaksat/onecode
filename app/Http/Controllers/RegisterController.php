@@ -12,7 +12,7 @@ class RegisterController extends Controller
         return view('register.index');
     }
 
-    public function store(Request $request) // Laravel автоматически передаст объект текущего запроса в указанную переменную
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:50'],
@@ -21,15 +21,11 @@ class RegisterController extends Controller
             'agreement' => ['accepted'],
         ]);
 
-
-        $user = new User();
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->password = bcrypt($validated['password']);
-        $user->save();
-
-        dd($user);
-
+        $user = User::query()->create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+        ]);
 
         return redirect()->route('user');
     }
