@@ -15,13 +15,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $post = (object) [
-            'id' => 123,
-            'title' => 'Lorem ipsum dolor sit amet.',
-            'content' => 'Lorem ipsum <strong>dolor</strong> sit amet, consectetur adipisicing elit. Delectus, nemo?'
-        ];
-
-        $posts = array_fill(0,10,$post);
+        $posts = Post::query()->latest('published_at')->paginate(12);
 
         return view('user.posts.index', compact('posts'));
     }
