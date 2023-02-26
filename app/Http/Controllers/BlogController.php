@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,12 +13,6 @@ class BlogController extends Controller
 {
     public function index (Request $request)
     {
-        $categories = [
-            null => __('Все категории'),
-            1 => __('Первая категория'),
-            2 => __('Вторая категория'),
-        ];
-
     //   $posts = Post::all(['id', 'title', 'published_at']);
 
     //   $posts = Post::query()->get(['id', 'title', 'published_at']);
@@ -37,9 +33,80 @@ class BlogController extends Controller
 //
 //        $posts = Post::query()->paginate($limit);
 
-        $posts = Post::query()->latest('published_at')->paginate(12);
 
-        return view('blog.index', compact('posts', 'categories'));
+//        $posts = Post::query()
+////            ->where('title', 'like','%aut%')
+////            ->whereNull('published_at')
+////            ->whereNotNull('published_at')
+////            ->whereIn('id', [1, 2, 3, 456])
+////            ->whereNotIn('id', [1, 2, 3, 456])
+////                ->toSql();
+////            ->whereDate('published_at', new Carbon('2022-07-18'))
+////            ->whereYear('published_at', 2022)
+////            ->whereMonth('published_at', 1)
+////            ->whereDay('published_at', 1)
+////            ->whereBetween('id', [1, 5])        //не один из аргументов диапазона не должен быть null
+//            ->whereBetween('published_at', [
+//                new Carbon('26.02.2022'),
+//                new Carbon('30.02.2022')
+//            ])
+//            ->orWhere('id', 10)
+//            ->paginate(12);
+
+//        $posts = Post::query()
+//            ->where(function (Builder $query){
+//                $query->where('title', 'like','%aut%')
+//                    ->whereDay('published_at', 1);
+//            })
+//            ->orWhere('id', 10)
+//            ->paginate(12);
+
+
+
+//        $fromDate = new Carbon('01.02.2022');
+//        $toDate = new Carbon('01.02.2022');
+//
+//        $posts = Post::query()
+//            ->when($fromDate, function (Builder $query, Carbon $fromDate) {
+//                $query->where('published_at', '>=', $fromDate);
+//            }, function (Builder $query) {
+//                $query->where('published_at', '>=', now()->startOfYear());
+//            })->paginate(12);
+//  первая коллбэк функция будет работать, когда в $fromDate значение не null, вторая коллбэк функция запуститься, когда
+//  в $formDate будет null
+
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:50'],
+            'from_date' => ['nullable', 'string', 'date'],
+            'to_date' => ['nullable', 'string', 'date', 'after:from_date'],
+            'tag' => ['nullable', 'string', 'max:10'],
+        ]);
+
+        $query = Post::query()
+            ->where('published', true)
+            ->whereNotNull('published_at');
+
+        if ($search = $validated['search'] ?? null) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        if ($fromDate = $validated['from_date'] ?? null) {
+            $query->where('published_at', '>=', new Carbon($fromDate));
+        }
+
+        if ($toDate = $validated['to_date'] ?? null) {
+            $query->where('published_at', '<=', new Carbon($toDate));
+        }
+
+        if ($tag = $validated['tag'] ?? null) {
+            $query->whereJsonContains('tags', $tag);
+        }
+
+
+        $posts = $query->latest('published_at')
+            ->paginate(12);
+
+        return view('blog.index', compact('posts'));
 
     }
 
