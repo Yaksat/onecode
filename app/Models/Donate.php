@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Donate extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'amount',
+        'currency_id'
     ];
 }

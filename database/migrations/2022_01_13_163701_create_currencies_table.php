@@ -20,10 +20,6 @@ class CreateCurrenciesTable extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->decimal('price')->unsigned();
-            $table->boolean('active')->default(true);
-            $table->timestamp('active_at')->nullable();
-            $table->integer('sort')->unsigned()->default(999); // поле для сортировки, если хотим чтобы какие-то поля были вверху списка присваиваем им не 999, а цифру меньше
         });
     }
 
