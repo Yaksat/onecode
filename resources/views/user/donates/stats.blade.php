@@ -7,7 +7,7 @@
                 </div>
 
                 <h5 class="m-0">
-                    {{ $stats['total_count'] }}
+                    {{ $stats->total_count }}
                 </h5>
             </x-card-body>
         </x-card>
@@ -21,7 +21,7 @@
                 </div>
 
                 <h5 class="m-0">
-                    {{ $stats['total_amount'] }}
+                    {{ $stats->total_amount }}
                 </h5>
             </x-card-body>
         </x-card>
@@ -35,7 +35,7 @@
                 </div>
 
                 <h5 class="m-0">
-                    {{ $stats['avg_amount'] }}
+                    {{ $stats->avg_amount }}
                 </h5>
             </x-card-body>
         </x-card>
@@ -49,7 +49,7 @@
                 </div>
 
                 <h5 class="m-0">
-                    {{ $stats['min_amount'] }}
+                    {{ $stats->min_amount }}
                 </h5>
             </x-card-body>
         </x-card>
@@ -63,7 +63,7 @@
                 </div>
 
                 <h5 class="m-0">
-                    {{ $stats['max_amount'] }}
+                    {{ $stats->max_amount }}
                 </h5>
             </x-card-body>
         </x-card>
